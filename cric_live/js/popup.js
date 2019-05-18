@@ -3,54 +3,57 @@ $(function(){
    nextMatch = function() {
         var bangladeshMatches = [
             {
-                'startDate': "June 2, 2019 15:30:00",
+                'startDate': "June 2, 2019 09:30:00",
                 'against': "South Africa",
                 "venue": "The Oval"
             },
             {
-                'startDate': "June 5, 2019 18:30:00",
+                'startDate': "June 5, 2019 12:30:00",
                 'against': "New Zealand",
                 "venue": "The Oval"
             },
             {
-                'startDate': "June 8, 2019 15:30:00",
+                'startDate': "June 8, 2019 09:30:00",
                 'against': "England",
                 "venue": "Sophia Gardens"
             },
             {
-                'startDate': "June 11, 2019 15:30:00",
+                'startDate': "June 11, 2019 09:30:00",
                 'against': "Srilanka",
                 "venue": "Bristol County Ground"
             },
             {
-                'startDate': "June 17, 2019 15:30:00",
+                'startDate': "June 17, 2019 09:30:00",
                 'against': "West Indies",
                 "venue": "County Ground, Taunton"
             },
             {
-                'startDate': "June 20, 2019 15:30:00",
+                'startDate': "June 20, 2019 09:30:00",
                 'against': "Australia",
                 "venue": "Trent Bridge"
             },
             {
-                'startDate': "June 24, 2019 15:30:00",
+                'startDate': "June 24, 2019 09:30:00",
                 'against': "Afganisthan",
                 "venue": "Rose Bowl Cricket Ground"
             },
             {
-                'startDate': "July 2, 2019 15:30:00",
+                'startDate': "July 2, 2019 09:30:00",
                 'against': "India",
                 "venue": "Edgbaston"
             },
             {
-                'startDate': "July 5, 2019 15:30:00",
+                'startDate': "July 5, 2019 09:30:00",
                 'against': "Pakisthan",
                 "venue": "Lord's"
             },
            
         ];
-        let result = {};
-        let now = new Date().getTime();
+        let result = null;
+        let date = new Date();
+        let newDate = new Date(date.getTime() + date.getTimezoneOffset()*60*1000);
+        let now = newDate.getTime()
+    
 
         for( let i in bangladeshMatches ) {
             let matchTime = new Date(bangladeshMatches[i]['startDate']).getTime();
@@ -74,6 +77,7 @@ $(function(){
     },
     setDateAndTime = function () {
         results = nextMatch();
+        if(results !== null) {
         document.getElementById("timer-days").innerHTML = results['days'] +
         "<span class='label'>DAY(S)</span>";
     
@@ -88,9 +92,10 @@ $(function(){
 
         document.getElementById("against").innerHTML = "Aganist: " + results['aganist'];
         document.getElementById("venue").innerHTML = "Venue: " + results['venue'];
-
-    
         setTimeout(setDateAndTime, 1000);
+        } else {
+            document.getElementById("title").innerHTML = "Hope Bangladesh qualify for Semifinal, otherwise see you 2023";
+        }
     };
     setDateAndTime();
 });
